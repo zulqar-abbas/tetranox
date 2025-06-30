@@ -1,0 +1,703 @@
+/* Theme Styles for Tetris Game */
+
+/* Classic Theme (Default) - Green Matrix Style */
+.theme-classic {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-board: #000000;
+    --bg-overlay: rgba(0, 0, 0, 0.9);
+    --text-primary: #00ff00;
+    --text-secondary: #00cc00;
+    --accent-primary: #00ff00;
+    --accent-secondary: #00cc00;
+    --border-color: #00ff00;
+    --grid-color: #003300;
+    --shadow-color: rgba(0, 255, 0, 0.5);
+    --glow-color: #00ff00;
+    --matrix-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+}
+
+/* Retro Pixel Theme - Red Arcade Style */
+.theme-retro {
+    --bg-primary: #2d1b1b;
+    --bg-secondary: #4d2b2b;
+    --bg-board: #1a0a0a;
+    --bg-overlay: rgba(45, 27, 27, 0.95);
+    --text-primary: #ff6b6b;
+    --text-secondary: #ff8e8e;
+    --accent-primary: #ff6b6b;
+    --accent-secondary: #ee5a52;
+    --border-color: #ff6b6b;
+    --grid-color: #4d2b2b;
+    --shadow-color: rgba(255, 107, 107, 0.6);
+    --glow-color: #ff6b6b;
+    --retro-bg: linear-gradient(135deg, #2d1b1b 0%, #4d2b2b 50%, #2d1b1b 100%);
+}
+
+/* Neon Glow Theme - Cyberpunk Style */
+.theme-neon {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a0a1a;
+    --bg-board: #000000;
+    --bg-overlay: rgba(10, 10, 10, 0.98);
+    --text-primary: #00ffff;
+    --text-secondary: #00cccc;
+    --accent-primary: #ff00ff;
+    --accent-secondary: #cc00cc;
+    --border-color: #ff00ff;
+    --grid-color: #1a0a1a;
+    --shadow-color: rgba(255, 0, 255, 0.7);
+    --glow-color: #ff00ff;
+    --neon-bg: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
+}
+
+/* Dark Mode Theme - Minimalist Style */
+.theme-dark {
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-board: #000000;
+    --bg-overlay: rgba(0, 0, 0, 0.95);
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --accent-primary: #4CAF50;
+    --accent-secondary: #45a049;
+    --border-color: #333333;
+    --grid-color: #222222;
+    --shadow-color: rgba(76, 175, 80, 0.4);
+    --glow-color: #4CAF50;
+    --dark-bg: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
+}
+
+/* Apply theme variables */
+body {
+    background: var(--matrix-bg);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+body.theme-retro {
+    background: var(--retro-bg);
+}
+
+body.theme-neon {
+    background: var(--neon-bg);
+}
+
+body.theme-dark {
+    background: var(--dark-bg);
+}
+
+/* Loading Screen */
+.loading-screen {
+    background: var(--matrix-bg);
+}
+
+.theme-retro .loading-screen {
+    background: var(--retro-bg);
+}
+
+.theme-neon .loading-screen {
+    background: var(--neon-bg);
+}
+
+.theme-dark .loading-screen {
+    background: var(--dark-bg);
+}
+
+.loading-title {
+    color: var(--accent-primary);
+    text-shadow: 0 0 20px var(--accent-primary);
+}
+
+.loading-spinner {
+    border-color: var(--border-color);
+    border-top-color: var(--accent-primary);
+}
+
+/* Screen Management */
+.screen {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+/* Main Menu */
+.game-title {
+    color: var(--accent-primary);
+    text-shadow: 0 0 30px var(--accent-primary);
+    transition: all 0.3s ease;
+}
+
+.game-title.theme-neon {
+    animation: neonGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    from { 
+        text-shadow: 0 0 30px var(--accent-primary),
+                     0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary);
+    }
+    to { 
+        text-shadow: 0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary),
+                     0 0 60px var(--accent-primary),
+                     0 0 70px var(--accent-primary);
+    }
+}
+
+/* Menu Buttons */
+.menu-btn.primary {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.menu-btn.primary:hover {
+    box-shadow: 0 6px 20px var(--shadow-color);
+    transform: translateY(-2px);
+}
+
+.menu-btn.secondary {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.menu-btn.secondary:hover {
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.menu-btn.tertiary {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.menu-btn.tertiary:hover {
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+/* Setup Screens */
+.setup-container {
+    background: var(--bg-overlay);
+}
+
+.setup-container h2 {
+    color: var(--accent-primary);
+}
+
+.form-group label {
+    color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group select {
+    border-color: var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 10px var(--shadow-color);
+}
+
+/* Game Header */
+.game-header {
+    background: var(--bg-overlay);
+}
+
+.player-name {
+    color: var(--accent-primary);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Game Board */
+#game-board {
+    border-color: var(--border-color);
+    background: var(--bg-board);
+    box-shadow: 0 0 20px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+/* Classic Theme Game Board */
+.theme-classic #game-board {
+    border: 3px solid var(--accent-primary);
+    box-shadow: 0 0 30px var(--shadow-color),
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+/* Retro Theme Game Board */
+.theme-retro #game-board {
+    border: 4px solid var(--accent-primary);
+    box-shadow: 0 0 25px var(--shadow-color),
+                inset 0 0 15px rgba(255, 107, 107, 0.2);
+    background: linear-gradient(45deg, var(--bg-board), #2a1a1a);
+}
+
+/* Neon Theme Game Board */
+.theme-neon #game-board {
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 40px var(--shadow-color),
+                inset 0 0 30px rgba(255, 0, 255, 0.1);
+    animation: neonBoardGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes neonBoardGlow {
+    from { 
+        box-shadow: 0 0 40px var(--shadow-color),
+                    inset 0 0 30px rgba(255, 0, 255, 0.1);
+    }
+    to { 
+        box-shadow: 0 0 60px var(--shadow-color),
+                    inset 0 0 40px rgba(255, 0, 255, 0.2);
+    }
+}
+
+/* Dark Theme Game Board */
+.theme-dark #game-board {
+    border: 1px solid var(--accent-primary);
+    box-shadow: 0 0 15px var(--shadow-color);
+    background: #000000;
+}
+
+.game-overlay {
+    background: var(--bg-overlay);
+}
+
+.overlay-content h2 {
+    color: #ff6b6b;
+}
+
+/* Game Sidebar */
+.next-piece,
+.hold-piece {
+    background: var(--bg-overlay);
+}
+
+.next-piece h3,
+.hold-piece h3 {
+    color: var(--accent-primary);
+}
+
+#next-canvas,
+#hold-canvas {
+    border-color: var(--border-color);
+    background: var(--bg-board);
+}
+
+/* Power-ups */
+.powerups {
+    background: var(--bg-overlay);
+}
+
+.powerups h3 {
+    color: var(--accent-primary);
+}
+
+.powerup {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.powerup:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.powerup.active {
+    background: rgba(var(--accent-primary-rgb, 0, 255, 0), 0.3);
+    border-color: var(--accent-primary);
+}
+
+.powerup.available {
+    background: rgba(var(--accent-primary-rgb, 0, 255, 0), 0.1);
+    border-color: var(--accent-primary);
+}
+
+/* Game Footer */
+.game-footer {
+    background: var(--bg-overlay);
+}
+
+.control-key {
+    background: var(--border-color);
+    color: var(--text-primary);
+}
+
+.control-desc {
+    color: var(--text-secondary);
+}
+
+/* Multiplayer */
+.player-board h3 {
+    color: var(--accent-primary);
+}
+
+.multiplayer-chat {
+    background: var(--bg-overlay);
+}
+
+.chat-message {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-input input {
+    border-color: var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.chat-input button {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+}
+
+/* Buttons */
+.btn.primary {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    color: var(--bg-primary);
+}
+
+.btn.secondary {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    color: var(--text-primary);
+}
+
+.btn.tertiary {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    color: var(--text-primary);
+}
+
+/* Theme-specific animations */
+.theme-neon .game-title {
+    animation: neonPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+    0%, 100% { 
+        text-shadow: 0 0 30px var(--accent-primary),
+                     0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary);
+    }
+    50% { 
+        text-shadow: 0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary),
+                     0 0 60px var(--accent-primary),
+                     0 0 70px var(--accent-primary);
+    }
+}
+
+.theme-retro .game-title {
+    font-family: 'Courier New', monospace;
+    text-shadow: 2px 2px 0px var(--accent-primary);
+    animation: retroGlitch 3s infinite;
+}
+
+@keyframes retroGlitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+/* Theme-specific board styles */
+.theme-neon #game-board {
+    box-shadow: 0 0 30px var(--shadow-color),
+                inset 0 0 30px rgba(255, 0, 255, 0.1);
+}
+
+.theme-retro #game-board {
+    border-width: 4px;
+    border-style: solid;
+    border-color: var(--accent-primary);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.theme-dark #game-board {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 15px var(--shadow-color);
+}
+
+/* Theme-specific power-up effects */
+.theme-neon .powerup.active {
+    box-shadow: 0 0 10px var(--accent-primary);
+    animation: neonPowerup 1s ease-in-out infinite alternate;
+}
+
+@keyframes neonPowerup {
+    from { box-shadow: 0 0 10px var(--accent-primary); }
+    to { box-shadow: 0 0 20px var(--accent-primary), 0 0 30px var(--accent-primary); }
+}
+
+.theme-retro .powerup.active {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    transform: scale(1.1);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme-specific menu effects */
+.theme-neon .menu-btn::before {
+    background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+}
+
+.theme-retro .menu-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme-specific form effects */
+.theme-neon .form-group input:focus,
+.theme-neon .form-group select:focus {
+    box-shadow: 0 0 15px var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.theme-retro .form-group input:focus,
+.theme-retro .form-group select:focus {
+    border-width: 3px;
+    border-color: var(--accent-primary);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme-specific control buttons */
+.theme-neon .control-btn:hover {
+    box-shadow: 0 0 10px var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.theme-retro .control-btn:hover {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    transform: scale(1.1);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme-specific chat styles */
+.theme-neon .chat-message {
+    border-left: 3px solid var(--accent-primary);
+    background: rgba(255, 0, 255, 0.1);
+}
+
+.theme-retro .chat-message {
+    border: 2px solid var(--accent-primary);
+    background: var(--bg-primary);
+    font-family: 'Courier New', monospace;
+}
+
+/* Theme-specific achievement toast */
+.theme-neon .achievement-toast {
+    background: var(--bg-overlay);
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 20px var(--accent-primary);
+}
+
+.theme-retro .achievement-toast {
+    background: var(--bg-primary);
+    border: 3px solid var(--accent-primary);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme-specific modal styles */
+.theme-neon .modal-content {
+    background: var(--bg-overlay);
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 30px var(--accent-primary);
+}
+
+.theme-retro .modal-content {
+    background: var(--bg-primary);
+    border: 4px solid var(--accent-primary);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme-specific leaderboard styles */
+.theme-neon .leaderboard-container {
+    background: var(--bg-overlay);
+    border: 2px solid var(--accent-primary);
+}
+
+.theme-retro .leaderboard-container {
+    background: var(--bg-primary);
+    border: 3px solid var(--accent-primary);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme-specific settings styles */
+.theme-neon .settings-container {
+    background: var(--bg-overlay);
+    border: 2px solid var(--accent-primary);
+}
+
+.theme-retro .settings-container {
+    background: var(--bg-primary);
+    border: 3px solid var(--accent-primary);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme transition effects */
+body,
+.screen,
+.game-header,
+.game-footer,
+.setup-container,
+.next-piece,
+.hold-piece,
+.powerups,
+.multiplayer-chat {
+    transition: all 0.3s ease;
+}
+
+/* Theme-specific responsive adjustments */
+@media (max-width: 768px) {
+    .theme-neon .game-title {
+        font-size: 2.5rem;
+        text-shadow: 0 0 20px var(--accent-primary);
+    }
+    
+    .theme-retro .game-title {
+        font-size: 2.5rem;
+        text-shadow: 1px 1px 0px var(--accent-primary);
+    }
+}
+
+/* Classic Theme - Matrix Style */
+.theme-classic .game-title {
+    text-shadow: 0 0 30px var(--accent-primary),
+                 0 0 40px var(--accent-primary),
+                 0 0 50px var(--accent-primary);
+    animation: matrixGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes matrixGlow {
+    from { 
+        text-shadow: 0 0 30px var(--accent-primary),
+                     0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary);
+    }
+    to { 
+        text-shadow: 0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary),
+                     0 0 60px var(--accent-primary),
+                     0 0 70px var(--accent-primary);
+    }
+}
+
+/* Retro Theme - Arcade Style */
+.theme-retro .game-title {
+    text-shadow: 0 0 20px var(--accent-primary),
+                 0 0 30px var(--accent-primary);
+    animation: retroGlitch 2s ease-in-out infinite alternate;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 3px;
+}
+
+@keyframes retroGlitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Neon Theme - Cyberpunk Style */
+.theme-neon .game-title {
+    animation: neonGlow 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px var(--accent-primary),
+                 0 0 40px var(--accent-primary),
+                 0 0 50px var(--accent-primary),
+                 0 0 60px var(--accent-primary);
+}
+
+@keyframes neonGlow {
+    from { 
+        text-shadow: 0 0 30px var(--accent-primary),
+                     0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary);
+    }
+    to { 
+        text-shadow: 0 0 40px var(--accent-primary),
+                     0 0 50px var(--accent-primary),
+                     0 0 60px var(--accent-primary),
+                     0 0 70px var(--accent-primary),
+                     0 0 80px var(--accent-primary);
+    }
+}
+
+/* Dark Theme - Minimalist Style */
+.theme-dark .game-title {
+    text-shadow: 0 0 10px var(--accent-primary);
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+/* Classic Theme Buttons */
+.theme-classic .menu-btn.primary {
+    border: 2px solid var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-primary);
+}
+
+.theme-classic .menu-btn.primary:hover {
+    background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+    box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+/* Retro Theme Buttons */
+.theme-retro .menu-btn.primary {
+    border: 3px solid var(--accent-primary);
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.theme-retro .menu-btn.primary:hover {
+    animation: retroButtonGlitch 0.3s ease-in-out;
+}
+
+@keyframes retroButtonGlitch {
+    0% { transform: translate(0); }
+    25% { transform: translate(-1px, 1px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, -1px); }
+    100% { transform: translate(0); }
+}
+
+/* Neon Theme Buttons */
+.theme-neon .menu-btn.primary {
+    border: 2px solid var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-primary);
+    animation: neonButtonPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonButtonPulse {
+    from { 
+        box-shadow: 0 4px 15px var(--shadow-color),
+                    0 0 20px var(--accent-primary);
+    }
+    to { 
+        box-shadow: 0 6px 20px var(--shadow-color),
+                    0 0 30px var(--accent-primary),
+                    0 0 40px var(--accent-primary);
+    }
+}
+
+/* Dark Theme Buttons */
+.theme-dark .menu-btn.primary {
+    border: 1px solid var(--accent-primary);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.theme-dark .menu-btn.primary:hover {
+    background: rgba(76, 175, 80, 0.2);
+} 

@@ -1,0 +1,51 @@
+{
+  "name": "tetris-multiplayer-game",
+  "version": "1.0.0",
+  "description": "A feature-rich Tetris game with multiplayer support built with HTML5, CSS3, JavaScript, and Firebase",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -p 8000",
+    "dev": "npx live-server --port=8000 --open=/",
+    "build": "echo 'No build step required for static files'",
+    "deploy": "firebase deploy",
+    "firebase:init": "firebase init hosting",
+    "firebase:login": "firebase login",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linting configured'"
+  },
+  "keywords": [
+    "tetris",
+    "game",
+    "multiplayer",
+    "firebase",
+    "javascript",
+    "html5",
+    "css3",
+    "real-time",
+    "leaderboard",
+    "achievements"
+  ],
+  "author": "Tetris Game Developer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/tetris-multiplayer-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/tetris-multiplayer-game/issues"
+  },
+  "homepage": "https://github.com/yourusername/tetris-multiplayer-game#readme",
+  "devDependencies": {
+    "firebase-tools": "^12.0.0",
+    "live-server": "^1.2.2",
+    "serve": "^14.2.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+} 

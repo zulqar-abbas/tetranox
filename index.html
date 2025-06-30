@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com;">
+    <title>Tetris Multiplayer</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/styles/themes.css">
+    <link rel="stylesheet" href="src/styles/components.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-classic">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <h1 class="loading-title">TETRIS</h1>
+            <div class="loading-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="main-menu" class="screen active">
+        <div class="menu-container">
+            <h1 class="game-title">TETRIS</h1>
+            <div class="menu-buttons">
+                <button id="single-player-btn" class="menu-btn primary">Single Player</button>
+                <button id="multiplayer-btn" class="menu-btn secondary">Multiplayer</button>
+                <button id="leaderboard-btn" class="menu-btn tertiary">Leaderboard</button>
+                <button id="settings-btn" class="menu-btn tertiary">Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Single Player Setup -->
+    <div id="single-player-setup" class="screen">
+        <div class="setup-container">
+            <h2>Single Player</h2>
+            <div class="setup-form">
+                <div class="form-group">
+                    <label for="single-nickname">Nickname:</label>
+                    <input type="text" id="single-nickname" placeholder="Enter your nickname" maxlength="15">
+                </div>
+                <div class="form-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select id="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="powerups-toggle" checked>
+                        Enable Power-ups
+                    </label>
+                </div>
+                <div class="setup-buttons">
+                    <button id="start-single-player" class="btn primary">Start Game</button>
+                    <button id="back-to-menu" class="btn secondary">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiplayer Setup -->
+    <div id="multiplayer-setup" class="screen">
+        <div class="setup-container">
+            <h2>Multiplayer</h2>
+            <div class="setup-form">
+                <div class="form-group">
+                    <label for="multi-nickname">Nickname:</label>
+                    <input type="text" id="multi-nickname" placeholder="Enter your nickname" maxlength="15">
+                </div>
+                <div class="multiplayer-options">
+                    <button id="create-room-btn" class="btn primary">Create Room</button>
+                    <div class="divider">or</div>
+                    <div class="join-room-section">
+                        <input type="text" id="room-code" placeholder="Enter room code" maxlength="6">
+                        <button id="join-room-btn" class="btn secondary">Join Room</button>
+                    </div>
+                </div>
+                <div class="setup-buttons">
+                    <button id="back-to-menu-2" class="btn tertiary">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header glassy-header">
+            <div class="player-info-block">
+                <span id="player-name" class="player-name">Player</span>
+                <span id="player-score" class="score">0</span>
+            </div>
+            <div class="game-stats-block">
+                <div class="stat-block">
+                    <span class="stat-label">Level</span>
+                    <span id="level" class="stat-value">1</span>
+                </div>
+                <div class="stat-block">
+                    <span class="stat-label">Lines</span>
+                    <span id="lines" class="stat-value">0</span>
+                </div>
+            </div>
+            <div class="game-controls-block">
+                <button id="pause-btn" class="control-btn glassy-btn" title="Pause">⏸</button>
+                <button id="theme-toggle" class="control-btn glassy-btn" title="Switch Theme">🎨</button>
+                <button id="sound-toggle" class="control-btn glassy-btn" title="Toggle Sound">🔊</button>
+            </div>
+        </div>
+
+        <div class="game-container pro-layout">
+            <div class="game-board-area">
+                <div class="game-board-glow"></div>
+                <canvas id="game-board" width="320" height="640"></canvas>
+            </div>
+            <aside class="game-sidebar pro-sidebar">
+                <div class="sidebar-card next-piece-card glassy-card">
+                    <div class="card-title">Next</div>
+                    <canvas id="next-canvas" width="120" height="120"></canvas>
+                </div>
+                <div class="sidebar-card hold-piece-card glassy-card">
+                    <div class="card-title">Hold</div>
+                    <canvas id="hold-canvas" width="120" height="120"></canvas>
+                </div>
+                <div class="sidebar-card powerups-card glassy-card">
+                    <div class="card-title">Power-ups</div>
+                    <div class="powerup-list">
+                        <div class="powerup pro-powerup" id="slow-time" data-powerup="slow-time" title="Slow Time">
+                            <span class="powerup-icon">⏰</span>
+                        </div>
+                        <div class="powerup pro-powerup" id="bomb-piece" data-powerup="bomb-piece" title="Bomb">
+                            <span class="powerup-icon">💣</span>
+                        </div>
+                        <div class="powerup pro-powerup" id="freeze-line" data-powerup="freeze-line" title="Freeze">
+                            <span class="powerup-icon">❄️</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <div class="game-overlay pro-overlay" id="game-overlay">
+            <div class="overlay-content glassy-card">
+                <h2 id="overlay-title" class="overlay-title">Game Over</h2>
+                <div class="game-stats-summary">
+                    <div class="summary-row"><span>Final Score</span><span id="final-score">0</span></div>
+                    <div class="summary-row"><span>Lines Cleared</span><span id="final-lines">0</span></div>
+                    <div class="summary-row"><span>Level Reached</span><span id="final-level">1</span></div>
+                    <div class="summary-row"><span>Game Time</span><span id="final-time">0s</span></div>
+                </div>
+                <div class="game-over-buttons">
+                    <button id="restart-btn" class="btn primary glassy-btn">Play Again</button>
+                    <button id="menu-btn" class="btn secondary glassy-btn">Main Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="game-footer glassy-footer">
+            <div class="controls-info pro-controls-info">
+                <div class="control-group"><span class="control-key">←→</span><span class="control-desc">Move</span></div>
+                <div class="control-group"><span class="control-key">↓</span><span class="control-desc">Soft Drop</span></div>
+                <div class="control-group"><span class="control-key">Space</span><span class="control-desc">Hard Drop</span></div>
+                <div class="control-group"><span class="control-key">↑</span><span class="control-desc">Rotate</span></div>
+                <div class="control-group"><span class="control-key">C</span><span class="control-desc">Hold</span></div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div id="leaderboard-screen" class="screen">
+        <div class="leaderboard-container">
+            <h2>Leaderboard</h2>
+            <div class="leaderboard-tabs">
+                <button class="tab-btn active" data-tab="global">Global</button>
+                <button class="tab-btn" data-tab="local">Local</button>
+            </div>
+            <div class="leaderboard-content">
+                <div id="global-leaderboard" class="leaderboard-list active">
+                    <div class="leaderboard-header">
+                        <span>Rank</span>
+                        <span>Player</span>
+                        <span>Score</span>
+                        <span>Level</span>
+                    </div>
+                    <div id="global-scores" class="scores-list"></div>
+                </div>
+                <div id="local-leaderboard" class="leaderboard-list">
+                    <div class="leaderboard-header">
+                        <span>Rank</span>
+                        <span>Player</span>
+                        <span>Score</span>
+                        <span>Date</span>
+                    </div>
+                    <div id="local-scores" class="scores-list"></div>
+                </div>
+            </div>
+            <div class="leaderboard-actions">
+                <button id="refresh-leaderboard" class="btn primary">Refresh</button>
+                <button id="test-firebase" class="btn tertiary">Test Firebase</button>
+                <button id="back-to-menu-3" class="btn secondary">Back to Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings-screen" class="screen">
+        <div class="settings-container">
+            <h2>Settings</h2>
+            <div class="settings-form">
+                <div class="setting-group">
+                    <label>Theme:</label>
+                    <select id="theme-selector">
+                        <option value="classic">Classic</option>
+                        <option value="retro">Retro Pixel</option>
+                        <option value="neon">Neon Glow</option>
+                        <option value="dark">Dark Mode</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>Sound Volume:</label>
+                    <input type="range" id="sound-volume" min="0" max="100" value="50">
+                    <span id="volume-display">50%</span>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="ghost-piece-toggle" checked>
+                        Show Ghost Piece
+                    </label>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="particles-toggle" checked>
+                        Enable Particles
+                    </label>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="auto-save-toggle" checked>
+                        Auto Save Progress
+                    </label>
+                </div>
+            </div>
+            <div class="settings-buttons">
+                <button id="save-settings" class="btn primary">Save Settings</button>
+                <button id="back-to-menu-4" class="btn secondary">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Toast -->
+    <div id="achievement-toast" class="achievement-toast hidden">
+        <div class="achievement-content">
+            <span class="achievement-icon">🏆</span>
+            <div class="achievement-text">
+                <h4 id="achievement-title">Achievement Unlocked!</h4>
+                <p id="achievement-desc">Description</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Code Modal -->
+    <div id="room-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Room Created!</h3>
+            <p>Share this code with your friend:</p>
+            <div class="room-code-display">
+                <span id="room-code-display">ABC123</span>
+                <button id="copy-room-code" class="btn small">Copy</button>
+            </div>
+            <p class="waiting-text">Waiting for player to join...</p>
+            <button id="cancel-room" class="btn secondary">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js" 
+            onload="console.log('Firebase App SDK loaded successfully')" 
+            onerror="console.error('Failed to load Firebase App SDK')"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js" 
+            onload="console.log('Firebase Database SDK loaded successfully')" 
+            onerror="console.error('Failed to load Firebase Database SDK')"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js" 
+            onload="console.log('Firebase Auth SDK loaded successfully')" 
+            onerror="console.error('Failed to load Firebase Auth SDK')"></script>
+
+    <!-- Firebase SDK Test -->
+    <script>
+        console.log('=== FIREBASE SDK AVAILABILITY TEST ===');
+        console.log('Firebase object available:', typeof firebase !== 'undefined');
+        if (typeof firebase !== 'undefined') {
+            console.log('Firebase object:', firebase);
+            console.log('Firebase.app available:', typeof firebase.app);
+            console.log('Firebase.database available:', typeof firebase.database);
+            console.log('Firebase.auth available:', typeof firebase.auth);
+        } else {
+            console.error('Firebase object not available after SDK scripts loaded');
+        }
+        console.log('=== END FIREBASE SDK AVAILABILITY TEST ===');
+    </script>
+
+    <!-- Game Scripts -->
+    <script src="src/config/firebase-config.js"></script>
+    <script src="src/utils/constants.js"></script>
+    <script src="src/utils/helpers.js"></script>
+    <script src="src/utils/storage.js"></script>
+    <script src="src/utils/achievements.js"></script>
+    <script src="src/game/tetrominoes.js"></script>
+    <script src="src/game/board.js"></script>
+    <script src="src/game/game-engine.js"></script>
+    <script src="src/game/powerups.js"></script>
+    <script src="src/ui/animations.js"></script>
+    <script src="src/ui/themes.js"></script>
+    <script src="src/ui/sound-manager.js"></script>
+    <script src="src/multiplayer/room-manager.js"></script>
+    <script src="src/multiplayer/game-sync.js"></script>
+    <script src="src/ui/screen-manager.js"></script>
+    <script src="src/ui/leaderboard.js"></script>
+    <script src="src/app.js"></script>
+</body>
+</html> 
